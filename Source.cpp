@@ -56,7 +56,7 @@ ISmap ISMetricMap = swapMap(SIMetricMap);
 void main() {
 	short gorn = 1;
 	while (gorn!=0) {
-		cout << "\n\tMod 1: Metric to summary Imperic converter\n\n\tMod 2: Imperic to Metric test\nuser:";
+		cout << "\n\tMod 1: Metric to summary Imperic converter\n\n\tMod 2: Imperic to Metric test\nuser: ";
 		cin >>gorn;
 		if (gorn == 1) mod1();
 		else if (gorn == 2) mod2();
@@ -67,7 +67,7 @@ void main() {
 
 void	regget(double& d, std::string& s) {
 
-	if (s == "0"||"exit") exit(0);
+	if (s == "0" || s == "exit") exit(0);
 	
 	std::string dou, str;
 	std::regex 	rs("([A-z])+$");
@@ -108,10 +108,8 @@ template <typename _T> void imp2met(_T imp, string s) {
 
 		case 4:
 			imp *= 1000;
-			cout << endl;
 		case 3:
 			imp *= 100;
-			cout << endl;
 		case 2:
 			imp *= 10;
 			cout << endl;
@@ -169,6 +167,7 @@ void mod1() {
 		getline(cin, s);
 		regget(d, s);
 		imp2met(d, s);
+		system("pause");
 		system("cls");
 	}
 }
