@@ -3,16 +3,16 @@
 #include <regex>
 #include <map>
 #include <Windows.h>
-using namespace std;
 
 void mod1();
 void mod2();
 void	regget(double& d, std::string& s);
 template<typename T> T pow_dec(T a, int b);
-template <typename _T> void imp2met(_T imp, string s);
+template <typename _T> void imp2met(_T imp, std::string s);
 template <typename T1, typename T2> std::map<T2, T1> swapMap(std::map<T1, T2> t);
 typedef std::map<std::string, int> SImap;
 typedef std::map<int, std::string> ISmap;
+bool cheat = false;
 
 
 SImap SIMetricMap = { 
@@ -55,11 +55,16 @@ ISmap ISMetricMap = swapMap(SIMetricMap);
 
 void main() {
 	short gorn = 1;
+	srand(time(NULL));
 	while (gorn!=0) {
-		cout << "\n\tMod 1: Metric to summary Imperic converter\n\n\tMod 2: Imperic to Metric test\nuser: ";
-		cin >>gorn;
+		std::cout << "\n\tMod 1: Metric to summary Imperic converter\n\n\tMod 2: Imperic to Metric test\n\n\tMod 3: Imperic to Metric test with a hint\nuser: ";
+		std::cin >>gorn;
 		if (gorn == 1) mod1();
 		else if (gorn == 2) mod2();
+		else if (gorn == 3) {
+			cheat = true;
+			mod2(); 
+		}
 		else Sleep(50);
 	}
 	system("pause");
@@ -72,12 +77,12 @@ void	regget(double& d, std::string& s) {
 	std::string dou, str;
 	std::regex 	rs("([A-z])+$");
 	std::regex 	rd("(\\d)+((\\.(\\d)+)|((?= )|()))");
-	smatch md, ms;
+	std::smatch md, ms;
 
 	std::regex_search(s, md, rd);
 	std::regex_search(s, ms, rs);
 
-	d = atof(string(md[0]).c_str());
+	d = atof(std::string(md[0]).c_str());
 	s = ms[0];
 }
 
@@ -96,14 +101,14 @@ std::map<T2, T1> swapMap(std::map<T1, T2> templateMap) {
 	return T;
 }
 
-template <typename _T> void imp2met(_T imp, string s) {
+template <typename _T> void imp2met(_T imp, std::string s) {
 	auto it = SIMetricMap.find(s);
 	double d;
 	int i;
 	if (it != SIMetricMap.end())
 		switch (it->second) {
 		default:
-			cout << "\nInput valid number\n";
+			std::cout << "\nInput valid number\n";
 			break;
 
 		case 4:
@@ -112,59 +117,59 @@ template <typename _T> void imp2met(_T imp, string s) {
 			imp *= 100;
 		case 2:
 			imp *= 10;
-			cout << endl;
+			std::cout << std::endl;
 
 		case 1: {
 			i = imp / 4828032.0f;
-			if (i)cout << i << " league" << endl;
+			if (i)std::cout << i << " league" << std::endl;
 
 			i = (imp -= 4828032 * i) / 1609344.0f;
-			if (i)cout << i << " statute mile" << endl;
+			if (i)std::cout << i << " statute mile" << std::endl;
 
 			i = (imp -= 1609344 * i) / 201168.0f;
-			if (i)cout << i << " furlong" << endl;
+			if (i)std::cout << i << " furlong" << std::endl;
 
 			i = (imp -= 201168 * i) / 20116.8f;
-			if (i)cout << i << " chain" << endl;
+			if (i)std::cout << i << " chain" << std::endl;
 
 			i = (imp -= 20116.8 * i) / 5029.2f;
-			if (i)cout << i << " rod" << endl;
+			if (i)std::cout << i << " rod" << std::endl;
 
 			i = (imp -= 5029.2f * i) / 914.4f;
-			if (i)cout << i << " yard" << endl;
+			if (i)std::cout << i << " yard" << std::endl;
 
 			i = (imp -= 914.4f * i) / 304.8f;
-			if (i)cout << i << " foot" << endl;
+			if (i)std::cout << i << " foot" << std::endl;
 
 			i = (imp -= 304.8f * i) / 101.6f;
-			if (i)cout << i << " hand" << endl;
+			if (i)std::cout << i << " hand" << std::endl;
 
 			i = (imp -= 101.6f * i) / 25.4f;
-			if (i)cout << i << " inch" << endl;
+			if (i)std::cout << i << " inch" << std::endl;
 
 			i = (imp -= 25.4f * i) / 2.1167f;
-			if (i)cout << i << " line" << endl;
+			if (i)std::cout << i << " line" << std::endl;
 
 			i = (imp -= 2.1167f * i) / 0.353;
-			if (i)cout << i << " point" << endl;
+			if (i)std::cout << i << " point" << std::endl;
 
 			d = (imp - 0.353f * i) / 0.0254;
-			cout << d << " mil" << endl << endl;
+			std::cout << d << " mil" << std::endl << std::endl;
 			break;
 		}
 		}
 }
 
 void mod1() {
-	string s;
+	std::string s;
 	double d;
-	cout << "Insert metric value\t\tenter 0 to exit\n\n(e.g. 12 mm || 55.3km)\n";
+	std::cout << "Insert metric value\t\tenter 0 to exit\n\n(e.g. 12 mm || 55.3km)\n";
 	while (1) {
 		s.clear();
 		d = 0.0f;
-		cout << "\n\tMetric: ";
-		cin.ignore();
-		getline(cin, s);
+		std::cout << "\n\tMetric: ";
+		std::cin.ignore();
+		std::getline(std::cin, s);
 		regget(d, s);
 		imp2met(d, s);
 		system("pause");
@@ -174,7 +179,6 @@ void mod1() {
 
 
 void mod2() {
-	srand(time(NULL));
 	double d;
 	while (1) {
 		system("cls");
@@ -183,16 +187,16 @@ void mod2() {
 		std::string imp = ISImpericMap.find(_rd)->second;
 		float f = rand() % 10 + 1 * (SIImpericMap.size()+1 - _rd);
 		
-		cout << "\n Convert " << f << " " << imp << " to " << ISMetricMap.find(_to)->second << "\n\nAnswer:";
-		cin >> d;		
+		std::cout << "\n Convert " << f << " " << imp << " to " << ISMetricMap.find(_to)->second << ((cheat) ? " (" + std::to_string(IFImperic2MetricMap.find(_rd)->second / pow_dec(1, _to)) + ")" : "") << "\n\nAnswer:";
+		std::cin >> d;
 
 		double answer = f * IFImperic2MetricMap.find(_rd)->second/ pow_dec(1, _to);
 		double k = f*IFImperic2MetricMap.find(_rd)->second / pow_dec(d, _to);
 		
 		if (k < 1.05&& k > 0.95)
-			cout << "\nGreat\n";
+			std::cout << "\nGreat\n";
 		else
-			cout << "\nAnswer:     " << answer << "\nDifference: " << abs(answer-d) << ISMetricMap.find(_to)->second << endl;
+			std::cout << "\nAnswer:     " << answer << "\nDifference: " << abs(answer-d) << ISMetricMap.find(_to)->second << std::endl;
 		system("pause");
 	}
 }
